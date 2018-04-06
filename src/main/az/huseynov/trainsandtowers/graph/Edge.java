@@ -10,6 +10,13 @@ public class Edge {
     private int distance;
     private Edge next;
 
+    /**
+     * Constructor
+     *
+     * @param source Vertex
+     * @param destination Vertex
+     * @param distance int
+     */
     public Edge(Vertex source, Vertex destination, int distance) {
         this.source = source;
         this.destination = destination;
@@ -17,6 +24,12 @@ public class Edge {
         this.next = null;
     }
 
+    /**
+     * Sets the next edge of the current one and returns it
+     *
+     * @param edge Edge
+     * @return Edge
+     */
     public Edge next(Edge edge) {
         this.next = edge;
         return this;

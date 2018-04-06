@@ -29,11 +29,11 @@ public class TrainsAndTowersTest {
         vertexE = new Vertex("E");
 
         /*Graph: AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7*/
-        graph.getRouteTable().put(vertexA, new Edge(vertexA, vertexB, 5).next(new Edge(vertexA, vertexD, 5).next(new Edge(vertexA, vertexE, 7))));
-        graph.getRouteTable().put(vertexB, new Edge(vertexB, vertexC, 4));
-        graph.getRouteTable().put(vertexC, new Edge(vertexC, vertexD, 8).next(new Edge(vertexC, vertexE, 2)));
-        graph.getRouteTable().put(vertexD, new Edge(vertexD, vertexC, 8).next(new Edge(vertexD, vertexE, 6)));
-        graph.getRouteTable().put(vertexE, new Edge(vertexE, vertexB, 3));
+        graph.getGraph().put(vertexA, new Edge(vertexA, vertexB, 5).next(new Edge(vertexA, vertexD, 5).next(new Edge(vertexA, vertexE, 7))));
+        graph.getGraph().put(vertexB, new Edge(vertexB, vertexC, 4));
+        graph.getGraph().put(vertexC, new Edge(vertexC, vertexD, 8).next(new Edge(vertexC, vertexE, 2)));
+        graph.getGraph().put(vertexD, new Edge(vertexD, vertexC, 8).next(new Edge(vertexD, vertexE, 6)));
+        graph.getGraph().put(vertexE, new Edge(vertexE, vertexB, 3));
     }
 
     /* TEST 1 */
@@ -79,7 +79,7 @@ public class TrainsAndTowersTest {
     }
 
     /* TEST 5 */
-    @Test(expected=Exception.class)
+    @Test()
     public void testDistanceBetween_AED() throws Exception  {
         ArrayList<Vertex> route = new ArrayList<Vertex>();
         route.add(vertexA);

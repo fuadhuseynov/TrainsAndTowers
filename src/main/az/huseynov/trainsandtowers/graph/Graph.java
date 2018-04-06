@@ -8,12 +8,20 @@ import java.util.Hashtable;
  */
 public class Graph {
 
-    private Hashtable<Vertex, Edge> routeTable;
+    private Hashtable<Vertex, Edge> graph;
 
     public Graph() {
-        this.routeTable = new Hashtable<>();
+        this.graph = new Hashtable<>();
     }
 
+    /**
+     * Returns the distance between two vertices
+     * Returns -1 if no such route exists
+     *
+     * @param vertices ArrayList<Vertex>
+     * @return int
+     * @throws Exception
+     */
     public int distanceBetween(ArrayList<Vertex> vertices) throws Exception {
         if (vertices.size() < 2)
             return 0;
@@ -23,8 +31,8 @@ public class Graph {
         int index = 0;
 
         while (index < vertices.size() - 1) {
-            if (this.routeTable.containsKey(vertices.get(index))) {
-                Edge edge = this.routeTable.get(vertices.get(index));
+            if (this.graph.containsKey(vertices.get(index))) {
+                Edge edge = this.graph.get(vertices.get(index));
                 while (edge != null) {
                     if (edge.getDestination().equals(vertices.get(index + 1))) {
                         distance += edge.getDistance();
@@ -43,34 +51,73 @@ public class Graph {
         return distance;
     }
 
+    /**
+     * Returns the number of trips starting at 'start' and 'end' vertices with
+     * maximum 'maxStops' of stops
+     *
+     * @param start Vertex
+     * @param end Vertex
+     * @param maxStops int
+     * @return int
+     * @throws Exception
+     */
     public int numberOfStops(Vertex start, Vertex end, int maxStops) throws Exception {
         return findRoutes(start, end, 0,maxStops);
     }
 
+    /**
+     * Returns the number of trips starting at 'start' and 'end' vertices with
+     * maximum 'maxStops' of stops (equal)
+     *
+     * @param start Vertex
+     * @param end Vertex
+     * @param maxStops int
+     * @return int
+     * @throws Exception
+     */
     public int numberOfStopsStepsPreserved(Vertex start, Vertex end, int maxStops) throws Exception {
         return findRoutesStepsPreserved(start, end, 0,maxStops);
     }
 
+    /**
+     * Returns the length of the shortest route
+     *
+     * @param start Vertex
+     * @param end Vertex
+     * @return int
+     * @throws Exception
+     */
     public int shortestRoute(Vertex start, Vertex end) throws Exception {
         return findShortestRoute(start, end, 0, 0);
     }
 
+    /**
+     * Returns the number of different routes from 'start' to 'end'
+     *
+     * @param start Vertex
+     * @param end Vertex
+     * @param maxDistance int
+     * @return int
+     * @throws Exception
+     */
     public int numRoutesWithin(Vertex start, Vertex end, int maxDistance) throws Exception {
         return findNumRoutesWithin(start, end, 0, maxDistance);
     }
 
-    public Hashtable<Vertex, Edge> getRouteTable() {
-        return this.routeTable;
+    public Hashtable<Vertex, Edge> getGraph() {
+        return this.graph;
     }
+
+    /****** PRIVATE METHODS ******/
 
     private int findRoutes(Vertex start, Vertex end, int depth, int maxStops) throws Exception {
         int routes = 0;
-        if (this.routeTable.containsKey(start) && this.routeTable.containsKey(end)) {
+        if (this.graph.containsKey(start) && this.graph.containsKey(end)) {
             depth++;
             if(depth > maxStops)
                 return 0;
             start.setVisited(true);
-            Edge edge = this.routeTable.get(start);
+            Edge edge = this.graph.get(start);
             while (edge != null) {
                 if(edge.getDestination().equals(end)) {
                     routes++;
@@ -90,12 +137,12 @@ public class Graph {
 
     private int findRoutesStepsPreserved(Vertex start, Vertex end, int depth, int maxStops) throws Exception {
         int routes = 0;
-        if (this.routeTable.containsKey(start) && this.routeTable.containsKey(end)) {
+        if (this.graph.containsKey(start) && this.graph.containsKey(end)) {
             depth++;
             if(depth > maxStops)
                 return 0;
             start.setVisited(true);
-            Edge edge = this.routeTable.get(start);
+            Edge edge = this.graph.get(start);
             while (edge != null) {
                 if(edge.getDestination().equals(end) && depth == maxStops) {
                     routes++;
@@ -112,9 +159,9 @@ public class Graph {
     }
 
     private int findShortestRoute(Vertex start, Vertex end, int distance, int shortestRoute) throws Exception {
-        if (this.routeTable.containsKey(start) && this.routeTable.containsKey(end)) {
+        if (this.graph.containsKey(start) && this.graph.containsKey(end)) {
             start.setVisited(true);
-            Edge edge = this.routeTable.get(start);
+            Edge edge = this.graph.get(start);
             while (edge != null) {
                 if (edge.getDestination() == end || !edge.getDestination().isVisited())
                     distance += edge.getDistance();
@@ -136,8 +183,8 @@ public class Graph {
 
     private int findNumRoutesWithin(Vertex start, Vertex end, int distance, int maxDistance) throws Exception {
         int routes = 0;
-        if (this.routeTable.containsKey(start) && this.routeTable.containsKey(end)) {
-            Edge edge = this.routeTable.get(start);
+        if (this.graph.containsKey(start) && this.graph.containsKey(end)) {
+            Edge edge = this.graph.get(start);
             while (edge != null) {
                 distance += edge.getDistance();
                 if (distance <= maxDistance) {

@@ -15,15 +15,13 @@ import java.util.Map;
 public class TrainsAndTowers {
 
     public static void main(String[] args) throws Exception {
-        /*
         if (args.length == 0 || args.length > 1) {
             System.out.println("WRONG ARGUMENTS");
             System.out.println("PLEASE PROVIDE FILE NAME AS COMMAND LINE ARGUMENT");
             System.exit(0);
         }
-        */
 
-        FileParser fileParser = new FileParser("input.txt");
+        FileParser fileParser = new FileParser(args[0]);
         Map<List<Vertex>, List<Edge>> parsedFileMap = fileParser.parseFile();
         Map.Entry<List<Vertex>, List<Edge>> entry = parsedFileMap.entrySet().iterator().next();
         List<Vertex> vertexList = entry.getKey();

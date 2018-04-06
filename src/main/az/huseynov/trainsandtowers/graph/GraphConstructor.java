@@ -23,11 +23,13 @@ public class GraphConstructor {
                     }
                 }
             }
-            graph.getRouteTable().put(vertex, edge);
+            graph.getGraph().put(vertex, edge);
         }
 
         return graph;
     }
+
+    /****** PRIVATE METHODS ******/
 
     private static Edge getLastEdge(Edge firstEdge) {
         Edge lastEdge = firstEdge;

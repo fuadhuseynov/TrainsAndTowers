@@ -15,11 +15,21 @@ public class FileParser {
     private String fileName;
     private File file;
 
+    /**
+     * Constructor
+     *
+     * @param fileName String
+     */
     public FileParser(String fileName) {
         this.fileName = fileName;
         file = new File(fileName);
     }
 
+    /**
+     * Parses the file and returns list of vertices and list of edges
+     *
+     * @return Map<List<Vertex>, List<Edge>>
+     */
     public Map<List<Vertex>, List<Edge>> parseFile() {
         Map<List<Vertex>, List<Edge>> graphList = new HashMap<>();
 
@@ -45,6 +55,8 @@ public class FileParser {
 
         return graphList;
     }
+
+    /****** PRIVATE METHODS ******/
 
     private List<Vertex> identifyVertices(List<String> fileList) {
         List<Vertex> vertexList = new ArrayList<>();

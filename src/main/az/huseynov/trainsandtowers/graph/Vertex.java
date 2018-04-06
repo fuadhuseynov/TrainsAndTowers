@@ -8,6 +8,11 @@ public class Vertex {
     private String name;
     private boolean visited;
 
+    /**
+     * Constructor
+     *
+     * @param name String
+     */
     public Vertex(String name) {
         this.name = name;
         this.visited = false;
